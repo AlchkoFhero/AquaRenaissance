@@ -1,0 +1,2157 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#1a2634">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="icon" type="image/png" href="Transparent_logo.png">
+    <title>АкваРенессанс - Скадовская рыбная ферма | Инвестиционный проект</title>
+    <link rel="icon" type="image/png"
+        href="https://page1.genspark.site/v1/base64_upload/c22449b088caca061e1ad0da004880300">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-dark: #1a2634;
+            --accent-cyan: #00b7c2;
+            --secondary-silver: #e6e8ea;
+            --pure-white: #ffffff;
+            --gradient-blue: linear-gradient(135deg, #0f1419 0%, #1a2634 50%, #2a3f54 100%);
+            --gradient-cyan: linear-gradient(135deg, #00b7c2 0%, #00d4e0 50%, #00f0ff 100%);
+            --gradient-dark: linear-gradient(135deg, #000d12 0%, #1a2634 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--primary-dark);
+            color: var(--pure-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100vw;
+        }
+
+        /* Header Navigation */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(26, 38, 52, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(0, 183, 194, 0.2);
+        }
+
+        .header.scrolled {
+            background: rgba(26, 38, 52, 0.98);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+
+        .nav-menu a {
+            color: var(--pure-white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-cyan);
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+
+        .nav-menu a:hover {
+            color: var(--accent-cyan);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--pure-white);
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .mobile-nav-menu {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            background: rgba(26, 38, 52, 0.98);
+            backdrop-filter: blur(20px);
+            display: none;
+            flex-direction: column;
+            padding: 20px;
+            z-index: 999;
+            border-top: 1px solid rgba(0, 183, 194, 0.2);
+        }
+
+        .mobile-nav-menu.active {
+            display: flex;
+        }
+
+        .mobile-nav-menu a {
+            color: var(--pure-white);
+            text-decoration: none;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .mobile-nav-menu a:hover {
+            color: var(--accent-cyan);
+        }
+
+        /* Professional water bubbles */
+        .bubbles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .bubble {
+            position: absolute;
+            bottom: -200px;
+            background: radial-gradient(circle at 30% 30%, rgba(0, 240, 255, 0.12), rgba(0, 183, 194, 0.06), transparent);
+            border-radius: 50%;
+            opacity: 0;
+            animation: professionalBubble 25s infinite linear;
+            border: 1px solid rgba(0, 183, 194, 0.08);
+            box-shadow:
+                inset 0 0 20px rgba(0, 240, 255, 0.05),
+                0 0 25px rgba(0, 183, 194, 0.03);
+        }
+
+        .bubble:nth-child(1) {
+            width: 100px;
+            height: 100px;
+            left: 8%;
+            animation-delay: 0s;
+            animation-duration: 35s;
+        }
+
+        .bubble:nth-child(2) {
+            width: 60px;
+            height: 60px;
+            left: 25%;
+            animation-delay: 8s;
+            animation-duration: 28s;
+        }
+
+        .bubble:nth-child(3) {
+            width: 140px;
+            height: 140px;
+            left: 45%;
+            animation-delay: 15s;
+            animation-duration: 42s;
+        }
+
+        .bubble:nth-child(4) {
+            width: 80px;
+            height: 80px;
+            left: 65%;
+            animation-delay: 5s;
+            animation-duration: 30s;
+        }
+
+        .bubble:nth-child(5) {
+            width: 120px;
+            height: 120px;
+            left: 80%;
+            animation-delay: 20s;
+            animation-duration: 38s;
+        }
+
+        @keyframes professionalBubble {
+            0% {
+                transform: translateY(0) rotate(0deg) scale(0.2);
+                opacity: 0;
+            }
+
+            15% {
+                opacity: 0.6;
+                transform: translateY(-120px) rotate(45deg) scale(0.8);
+            }
+
+            50% {
+                opacity: 0.8;
+                transform: translateY(-50vh) rotate(180deg) scale(1);
+            }
+
+            85% {
+                opacity: 0.3;
+                transform: translateY(-85vh) rotate(315deg) scale(0.6);
+            }
+
+            100% {
+                transform: translateY(-100vh) rotate(360deg) scale(0.1);
+                opacity: 0;
+            }
+        }
+
+        /* Enhanced wave animation */
+        .wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 200%;
+            height: 150px;
+            background: linear-gradient(135deg, rgba(0, 183, 194, 0.1) 0%, rgba(0, 240, 255, 0.04) 100%);
+            animation: waveMotion 20s ease-in-out infinite;
+            clip-path: polygon(0 50%, 100% 80%, 100% 100%, 0% 100%);
+        }
+
+        @keyframes waveMotion {
+
+            0%,
+            100% {
+                transform: translateX(-50%) translateY(0) rotate(0deg);
+                clip-path: polygon(0 60%, 25% 40%, 50% 60%, 75% 30%, 100% 50%, 100% 100%, 0% 100%);
+            }
+
+            25% {
+                transform: translateX(-45%) translateY(-10px) rotate(0.5deg);
+                clip-path: polygon(0 50%, 25% 70%, 50% 40%, 75% 60%, 100% 30%, 100% 100%, 0% 100%);
+            }
+
+            50% {
+                transform: translateX(-55%) translateY(-5px) rotate(-0.5deg);
+                clip-path: polygon(0 70%, 25% 50%, 50% 80%, 75% 40%, 100% 70%, 100% 100%, 0% 100%);
+            }
+
+            75% {
+                transform: translateX(-48%) translateY(-15px) rotate(0.3deg);
+                clip-path: polygon(0 40%, 25% 60%, 50% 30%, 75% 70%, 100% 50%, 100% 100%, 0% 100%);
+            }
+        }
+
+        /* Section styling */
+        .section {
+            padding: 100px 0;
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 100vw;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: var(--gradient-blue);
+            position: relative;
+            overflow: hidden;
+            padding-top: 70px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(circle at 20% 80%, rgba(0, 183, 194, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 240, 255, 0.05) 0%, transparent 50%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            z-index: 3;
+            position: relative;
+            width: 100%;
+        }
+
+        .hero-text h1 {
+            font-size: 4.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: var(--gradient-cyan);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .hero-text h2 {
+            font-size: 2.2rem;
+            color: var(--secondary-silver);
+            margin-bottom: 20px;
+            font-weight: 300;
+            letter-spacing: -0.01em;
+        }
+
+        .hero-text .slogan {
+            font-size: 1.4rem;
+            color: var(--accent-cyan);
+            margin-bottom: 50px;
+            font-weight: 500;
+            font-style: italic;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 20px 45px;
+            background: var(--gradient-cyan);
+            color: var(--primary-dark);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.4s ease;
+            box-shadow:
+                0 15px 35px rgba(0, 183, 194, 0.3),
+                0 5px 15px rgba(0, 183, 194, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow:
+                0 20px 45px rgba(0, 183, 194, 0.4),
+                0 10px 25px rgba(0, 183, 194, 0.3);
+        }
+
+        .hero-metrics {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .metric-card {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 35px 25px;
+            border-radius: 20px;
+            text-align: center;
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 183, 194, 0.2);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .metric-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--gradient-cyan);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .metric-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .metric-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(0, 183, 194, 0.2);
+            border-color: var(--accent-cyan);
+        }
+
+        .metric-number {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: var(--accent-cyan);
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .metric-label {
+            font-size: 1rem;
+            color: var(--secondary-silver);
+            font-weight: 500;
+        }
+
+        /* Modern text formatting */
+        .section-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 70px;
+            text-align: center;
+            color: var(--pure-white);
+            line-height: 1.2;
+            letter-spacing: -0.02em;
+        }
+
+        .section-subtitle {
+            font-size: 1.3rem;
+            color: var(--secondary-silver);
+            text-align: center;
+            margin-bottom: 50px;
+            font-weight: 300;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        .highlight {
+            background: var(--gradient-cyan);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* About Section */
+        .about {
+            background: var(--gradient-dark);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: var(--secondary-silver);
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            border: 1px solid rgba(0, 183, 194, 0.1);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 35px 30px;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid rgba(0, 183, 194, 0.15);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 183, 194, 0.05) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 20px 40px rgba(0, 183, 194, 0.15);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--accent-cyan);
+            margin-bottom: 20px;
+        }
+
+        .feature-number {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            margin-bottom: 10px;
+        }
+
+        .feature-text {
+            color: var(--secondary-silver);
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        /* Technology Section */
+        .technology {
+            background: var(--primary-dark);
+        }
+
+        .tech-flow {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 25px;
+            margin-top: 60px;
+        }
+
+        .tech-step {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 40px 25px;
+            border-radius: 20px;
+            text-align: center;
+            position: relative;
+            border: 2px solid transparent;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .tech-step:hover {
+            border-color: var(--accent-cyan);
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 183, 194, 0.2);
+        }
+
+        .tech-step::after {
+            content: '→';
+            position: absolute;
+            right: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--accent-cyan);
+            font-size: 1.8rem;
+            font-weight: bold;
+            opacity: 0.7;
+        }
+
+        .tech-step:last-child::after {
+            display: none;
+        }
+
+        .tech-icon {
+            font-size: 2.5rem;
+            color: var(--accent-cyan);
+            margin-bottom: 20px;
+        }
+
+        .tech-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--pure-white);
+        }
+
+        .tech-desc {
+            font-size: 0.95rem;
+            color: var(--secondary-silver);
+            line-height: 1.5;
+        }
+
+        /* Fish Species Section */
+        .fish-species {
+            background: var(--gradient-dark);
+        }
+
+        .fish-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 25px;
+            margin-top: 60px;
+        }
+
+        .fish-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            padding: 35px 25px;
+            text-align: center;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(0, 183, 194, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .fish-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-cyan);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 1;
+        }
+
+        .fish-card>* {
+            position: relative;
+            z-index: 2;
+        }
+
+        .fish-card:hover::before {
+            opacity: 0.05;
+        }
+
+        .fish-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 183, 194, 0.25);
+            border-color: var(--accent-cyan);
+        }
+
+        .fish-icon {
+            font-size: 3.5rem;
+            margin-bottom: 25px;
+            color: var(--accent-cyan);
+        }
+
+        .fish-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--pure-white);
+            line-height: 1.3;
+        }
+
+        .fish-name-line {
+            display: block;
+        }
+
+        .fish-price {
+            font-size: 1.8rem;
+            color: var(--accent-cyan);
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .fish-desc {
+            font-size: 0.95rem;
+            color: var(--secondary-silver);
+            line-height: 1.5;
+        }
+
+        /* Financial Section */
+        .financial {
+            background: var(--primary-dark);
+        }
+
+        .financial-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 60px;
+            margin-top: 60px;
+        }
+
+        .chart-container {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 40px;
+            border-radius: 25px;
+            border: 1px solid rgba(0, 183, 194, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .chart-wrapper {
+            height: 400px;
+            position: relative;
+        }
+
+        .financial-metrics {
+            display: grid;
+            gap: 20px;
+        }
+
+        .metric-item {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 183, 194, 0.2);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .metric-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-cyan);
+        }
+
+        .metric-value {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .metric-title {
+            color: var(--secondary-silver);
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        /* Benefits Section */
+        .benefits {
+            background: var(--gradient-dark);
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .benefit-card {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 45px 35px;
+            border-radius: 25px;
+            text-align: center;
+            border: 1px solid rgba(0, 183, 194, 0.2);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .benefit-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(0, 183, 194, 0.05) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .benefit-card:hover::before {
+            opacity: 1;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-12px);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 25px 50px rgba(0, 183, 194, 0.15);
+        }
+
+        .benefit-icon {
+            font-size: 3.5rem;
+            color: var(--accent-cyan);
+            margin-bottom: 25px;
+        }
+
+        .benefit-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--pure-white);
+        }
+
+        .benefit-desc {
+            color: var(--secondary-silver);
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        /* Market Section */
+        .market {
+            background: var(--primary-dark);
+        }
+
+        .market-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 70px;
+            margin-top: 60px;
+        }
+
+        .market-info {
+            display: grid;
+            gap: 30px;
+        }
+
+        .market-item {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 35px;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 183, 194, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .market-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-cyan);
+        }
+
+        .market-item h4 {
+            color: var(--accent-cyan);
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .market-item p {
+            color: var(--secondary-silver);
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .market-item strong {
+            color: var(--pure-white);
+        }
+
+        .market-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .stat-box {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(0, 183, 194, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .stat-box:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-cyan);
+        }
+
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: var(--secondary-silver);
+            font-weight: 500;
+        }
+
+        /* Impact Section */
+        .impact {
+            background: var(--gradient-dark);
+        }
+
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .impact-card {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid rgba(0, 183, 194, 0.2);
+            transition: all 0.4s ease;
+        }
+
+        .impact-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 20px 40px rgba(0, 183, 194, 0.1);
+        }
+
+        .impact-number {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        .impact-label {
+            color: var(--secondary-silver);
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+
+        /* Risks Section */
+        .risks {
+            background: var(--primary-dark);
+        }
+
+        .risks-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .risk-card {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 35px;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 183, 194, 0.2);
+            transition: all 0.4s ease;
+        }
+
+        .risk-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--accent-cyan);
+            box-shadow: 0 20px 40px rgba(0, 183, 194, 0.1);
+        }
+
+        .risk-level {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .risk-medium {
+            background: rgba(255, 193, 7, 0.2);
+            color: #ffc107;
+            border: 1px solid rgba(255, 193, 7, 0.3);
+        }
+
+        .risk-low {
+            background: rgba(40, 167, 69, 0.2);
+            color: #28a745;
+            border: 1px solid rgba(40, 167, 69, 0.3);
+        }
+
+        .risk-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: var(--pure-white);
+        }
+
+        .risk-desc {
+            color: var(--secondary-silver);
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+
+        .risk-measures {
+            color: var(--accent-cyan);
+            font-weight: 500;
+            line-height: 1.6;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: var(--gradient-dark);
+        }
+
+        .contact-content {
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 183, 194, 0.2);
+            border-radius: 15px;
+            transition: all 0.4s ease;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-cyan);
+            background: rgba(0, 183, 194, 0.05);
+            box-shadow: 0 25px 50px rgba(0, 183, 194, 0.15);
+        }
+
+        .contact-icon {
+            font-size: 3.5rem;
+            color: var(--accent-cyan);
+            margin-bottom: 25px;
+            transition: all 0.4s ease;
+        }
+
+        .contact-item:hover .contact-icon {
+            transform: scale(1.1);
+        }
+
+        .contact-text {
+            text-align: center;
+        }
+
+        .contact-link {
+            font-size: 1.3rem;
+            color: var(--pure-white);
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .contact-item:hover .contact-link {
+            color: var(--accent-cyan);
+        }
+
+        .cta-section {
+            background: var(--gradient-cyan);
+            color: var(--primary-dark);
+            padding: 40px;
+            border-radius: 25px;
+            margin-top: 50px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .cta-section p {
+            color: var(--primary-dark);
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .handshake-icon {
+            font-size: 3rem;
+            color: var(--primary-dark);
+            margin-top: 10px;
+            opacity: 0.8;
+        }
+
+        .handshake-icon i {
+            transform: scale(1);
+            transition: transform 0.3s ease;
+        }
+
+        .cta-section:hover .handshake-icon i {
+            transform: scale(1.2);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--primary-dark);
+            padding: 3rem 0;
+            color: var(--secondary-silver);
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .footer-logo {
+            flex-shrink: 0;
+        }
+
+        .footer-logo .logo-img {
+            width: 120px;
+            height: auto;
+            filter: brightness(0.9);
+        }
+
+        .footer-info {
+            flex-grow: 1;
+            text-align: center;
+            width: 100%;
+        }
+
+        .footer-contact h3 {
+            color: var(--accent-cyan);
+            margin-bottom: 0.5rem;
+            font-size: 1.25rem;
+        }
+
+        .footer-desc {
+            color: var(--secondary-silver);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .contact-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-links a,
+        .contact-links span {
+            color: var(--secondary-silver);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .contact-links a:hover {
+            color: var(--accent-cyan);
+        }
+
+        .footer-legal {
+            font-size: 0.8rem;
+            color: rgba(230, 232, 234, 0.7);
+            margin-top: 1rem;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(230, 232, 234, 0.1);
+            padding-top: 1rem;
+            text-align: center;
+            font-size: 0.8rem;
+            color: rgba(230, 232, 234, 0.7);
+        }
+
+        @media (max-width: 768px) {
+            .footer-content {
+                padding: 0 1rem;
+            }
+
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 50px;
+                text-align: center;
+            }
+
+            .hero-text h1 {
+                font-size: 3.5rem;
+            }
+
+            .fish-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .tech-flow {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .benefits-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section {
+                padding: 80px 0;
+            }
+
+            .container {
+                padding: 0 15px;
+            }
+
+            .hero-text h1 {
+                font-size: 2.8rem;
+            }
+
+            .hero-text h2 {
+                font-size: 1.6rem;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+            }
+
+            .hero-metrics {
+                grid-template-columns: 1fr;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 50px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tech-flow {
+                grid-template-columns: 1fr;
+            }
+
+            .tech-step::after {
+                content: '↓';
+                right: 50%;
+                top: 100%;
+                transform: translateX(50%);
+                font-size: 1.5rem;
+            }
+
+            .fish-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .financial-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .market-content {
+                grid-template-columns: 1fr;
+            }
+
+            .impact-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .risks-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-text h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero-text h2 {
+                font-size: 1.3rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .fish-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .impact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .market-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-logo img {
+                width: 80px;
+                height: 80px;
+            }
+        }
+
+        /* Animation utilities */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .counter {
+            transition: all 0.3s ease;
+        }
+
+        /* Scroll animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header Navigation -->
+    <header class="header" id="header">
+        <div class="nav-container">
+            <a href="#hero" class="logo">
+                <img src="Transparent_logo.png" alt="АкваРенессанс">
+                АкваРенессанс
+            </a>
+            <nav class="nav-menu">
+                <a href="#about">О проекте</a>
+                <a href="#technology">Технология</a>
+                <a href="#fish">Продукция</a>
+                <a href="#financial">Финансы</a>
+                <a href="#benefits">Преимущества</a>
+                <a href="#market">Рынок</a>
+                <a href="#contact">Контакты</a>
+            </nav>
+            <button class="mobile-menu-toggle" id="mobileToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        <nav class="mobile-nav-menu" id="mobileMenu">
+            <a href="#about">О проекте</a>
+            <a href="#technology">Технология</a>
+            <a href="#fish">Продукция</a>
+            <a href="#financial">Финансы</a>
+            <a href="#benefits">Преимущества</a>
+            <a href="#market">Рынок</a>
+            <a href="#contact">Контакты</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero section" id="hero">
+        <div class="bubbles">
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+            <div class="bubble"></div>
+        </div>
+        <div class="wave"></div>
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>АкваРенессанс</h1>
+                    <h2>Скадовская рыбная ферма</h2>
+                    <p class="slogan">Будущее аквакультуры уже здесь</p>
+                    <a href="AquaRenaissance_Skadovsk_fish_farm_presentation.pdf" class="cta-button" download>
+                        <i class="fas fa-download"></i>
+                        Скачать презентацию проекта
+                    </a>
+                </div>
+                <div class="hero-metrics">
+                    <div class="metric-card">
+                        <span class="metric-number counter" data-target="50">50</span>
+                        <span class="metric-label">млн ₽ инвестиции</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-number counter" data-target="100">100</span>
+                        <span class="metric-label">тонн рыбы в год</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-number counter" data-target="40.25">40,25</span>
+                        <span class="metric-label">% IRR</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-number counter" data-target="4.5">4,5</span>
+                        <span class="metric-label">года окупаемости</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Project -->
+    <section class="about section" id="about">
+        <div class="container">
+            <h2 class="section-title">Инновационная рыбная ферма <span class="highlight">полного цикла</span></h2>
+            <p class="section-subtitle">Современные технологии замкнутого водоснабжения для устойчивого и экологичного
+                производства премиальной рыбы</p>
+            <div class="about-grid">
+                <div class="about-text animate-on-scroll">
+                    <p>Проект "АкваРенессанс" представляет собой современную рыбоводческую ферму, использующую передовую
+                        технологию рециркуляционных аквакультурных систем (RAS).</p>
+                    <br>
+                    <p>Расположенная в стратегически важном регионе Российской Федерации - Херсонской области, ферма
+                        обеспечит устойчивое производство востребованных видов рыб с высокой доходностью для инвесторов.
+                    </p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card animate-on-scroll">
+                        <div class="feature-icon"><i class="fas fa-users"></i></div>
+                        <div class="feature-number">17</div>
+                        <div class="feature-text">рабочих мест</div>
+                    </div>
+                    <div class="feature-card animate-on-scroll">
+                        <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+                        <div class="feature-number">40,25%</div>
+                        <div class="feature-text">IRR проекта</div>
+                    </div>
+                    <div class="feature-card animate-on-scroll">
+                        <div class="feature-icon"><i class="fas fa-cogs"></i></div>
+                        <div class="feature-number">RAS</div>
+                        <div class="feature-text">технология</div>
+                    </div>
+                    <div class="feature-card animate-on-scroll">
+                        <div class="feature-icon"><i class="fas fa-leaf"></i></div>
+                        <div class="feature-number">80%</div>
+                        <div class="feature-text">экологичность</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology -->
+    <section class="technology section" id="technology">
+        <div class="container">
+            <h2 class="section-title">Замкнутая система водоснабжения <span class="highlight">(RAS)</span></h2>
+            <p class="section-subtitle">Инновационная технология полного контроля водной среды для максимальной
+                эффективности производства</p>
+            <div class="tech-flow">
+                <div class="tech-step animate-on-scroll">
+                    <div class="tech-icon"><i class="fas fa-swimming-pool"></i></div>
+                    <div class="tech-title">Бассейны для выращивания</div>
+                    <div class="tech-desc">Контролируемая среда обитания рыб с оптимальными параметрами</div>
+                </div>
+                <div class="tech-step animate-on-scroll">
+                    <div class="tech-icon"><i class="fas fa-filter"></i></div>
+                    <div class="tech-title">Механическая фильтрация</div>
+                    <div class="tech-desc">Удаление твердых частиц и загрязнений из воды</div>
+                </div>
+                <div class="tech-step animate-on-scroll">
+                    <div class="tech-icon"><i class="fas fa-recycle"></i></div>
+                    <div class="tech-title">Биологическая очистка</div>
+                    <div class="tech-desc">Преобразование аммиака в безопасные нитраты</div>
+                </div>
+                <div class="tech-step animate-on-scroll">
+                    <div class="tech-icon"><i class="fas fa-sun"></i></div>
+                    <div class="tech-title">УФ-стерилизация</div>
+                    <div class="tech-desc">Обеззараживание воды от патогенных микроорганизмов</div>
+                </div>
+                <div class="tech-step animate-on-scroll">
+                    <div class="tech-icon"><i class="fas fa-redo"></i></div>
+                    <div class="tech-title">Возврат в систему</div>
+                    <div class="tech-desc">Замкнутый цикл рециркуляции очищенной воды</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fish Species -->
+    <section class="fish-species section" id="fish">
+        <div class="container">
+            <h2 class="section-title"><span class="highlight">Востребованные</span> виды рыб</h2>
+            <p class="section-subtitle">Тщательно отобранные виды рыб с высокой рыночной стоимостью и стабильным спросом
+            </p>
+            <div class="fish-grid">
+                <div class="fish-card animate-on-scroll">
+                    <div class="fish-icon"><i class="fas fa-fish"></i></div>
+                    <div class="fish-name">
+                        <span class="fish-name-line">Кефаль</span>
+                        <span class="fish-name-line">черноморская</span>
+                    </div>
+                    <div class="fish-price">350 ₽/кг</div>
+                    <div class="fish-desc">Деликатесная рыба с высоким спросом на региональном рынке</div>
+                </div>
+                <div class="fish-card animate-on-scroll">
+                    <div class="fish-icon"><i class="fas fa-fish"></i></div>
+                    <div class="fish-name">
+                        <span class="fish-name-line">Камбала</span>
+                        <span class="fish-name-line">калкан</span>
+                    </div>
+                    <div class="fish-price">600 ₽/кг</div>
+                    <div class="fish-desc">Ценная промысловая рыба премиум-сегмента</div>
+                </div>
+                <div class="fish-card animate-on-scroll">
+                    <div class="fish-icon"><i class="fas fa-fish"></i></div>
+                    <div class="fish-name">
+                        <span class="fish-name-line">Сибас</span>
+                        <span class="fish-name-line">европейский</span>
+                    </div>
+                    <div class="fish-price">980 ₽/кг</div>
+                    <div class="fish-desc">Премиальный продукт для ресторанов высокой кухни</div>
+                </div>
+                <div class="fish-card animate-on-scroll">
+                    <div class="fish-icon"><i class="fas fa-fish"></i></div>
+                    <div class="fish-name">
+                        <span class="fish-name-line">Ставрида</span>
+                        <span class="fish-name-line">черноморская</span>
+                    </div>
+                    <div class="fish-price">320 ₽/кг</div>
+                    <div class="fish-desc">Массовый продукт с стабильным потребительским спросом</div>
+                </div>
+                <div class="fish-card animate-on-scroll">
+                    <div class="fish-icon"><i class="fas fa-crown"></i></div>
+                    <div class="fish-name">
+                        <span class="fish-name-line">Осётр</span>
+                        <span class="fish-name-line">русский</span>
+                    </div>
+                    <div class="fish-price">2500 ₽/кг</div>
+                    <div class="fish-desc">Элитный продукт с высокой маржинальностью и икрой</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Financial Metrics -->
+    <section class="financial section" id="financial">
+        <div class="container">
+            <h2 class="section-title">Финансовая <span class="highlight">эффективность</span> проекта</h2>
+            <p class="section-subtitle">Детальный анализ экономических показателей подтверждает высокую инвестиционную
+                привлекательность</p>
+            <div class="financial-grid">
+                <div class="chart-container animate-on-scroll">
+                    <h3 style="text-align: center; margin-bottom: 30px; color: var(--accent-cyan); font-size: 1.5rem;">
+                        Денежные потоки по годам</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="cashFlowChart"></canvas>
+                    </div>
+                </div>
+                <div class="financial-metrics">
+                    <div class="metric-item animate-on-scroll">
+                        <span class="metric-value">2,21</span>
+                        <span class="metric-title">Индекс прибыльности (PI)</span>
+                    </div>
+                    <div class="metric-item animate-on-scroll">
+                        <span class="metric-value">40,25%</span>
+                        <span class="metric-title">Внутренняя норма доходности (IRR)</span>
+                    </div>
+                    <div class="metric-item animate-on-scroll">
+                        <span class="metric-value">4,5 года</span>
+                        <span class="metric-title">Срок окупаемости (PP)</span>
+                    </div>
+                    <div class="metric-item animate-on-scroll">
+                        <span class="metric-value">60,7 млн ₽</span>
+                        <span class="metric-title">Чистая приведенная стоимость (NPV)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Benefits -->
+    <section class="benefits section" id="benefits">
+        <div class="container">
+            <h2 class="section-title">Почему RAS — <span class="highlight">технология будущего</span></h2>
+            <p class="section-subtitle">Революционные преимущества замкнутых аквакультурных систем для современного
+                рыбоводства</p>
+            <div class="benefits-grid">
+                <div class="benefit-card animate-on-scroll">
+                    <div class="benefit-icon"><i class="fas fa-tint"></i></div>
+                    <div class="benefit-title">Экономия воды до 95%</div>
+                    <div class="benefit-desc">Рециркуляция воды снижает потребление в 20 раз по сравнению с
+                        традиционными методами аквакультуры</div>
+                </div>
+                <div class="benefit-card animate-on-scroll">
+                    <div class="benefit-icon"><i class="fas fa-seedling"></i></div>
+                    <div class="benefit-title">Нулевые стоки в природу</div>
+                    <div class="benefit-desc">Замкнутая система полностью исключает загрязнение окружающей водной среды
+                    </div>
+                </div>
+                <div class="benefit-card animate-on-scroll">
+                    <div class="benefit-icon"><i class="fas fa-calendar-alt"></i></div>
+                    <div class="benefit-title">Работа 365 дней в году</div>
+                    <div class="benefit-desc">Полная независимость от климатических условий и сезонных ограничений</div>
+                </div>
+                <div class="benefit-card animate-on-scroll">
+                    <div class="benefit-icon"><i class="fas fa-expand-arrows-alt"></i></div>
+                    <div class="benefit-title">Плотность посадки в 40 раз выше</div>
+                    <div class="benefit-desc">Максимальная эффективность использования производственных площадей</div>
+                </div>
+                <div class="benefit-card animate-on-scroll">
+                    <div class="benefit-icon"><i class="fas fa-search"></i></div>
+                    <div class="benefit-title">Контроль качества 24/7</div>
+                    <div class="benefit-desc">Автоматизированный мониторинг всех критических параметров водной среды
+                    </div>
+                </div>
+                <div class="benefit-card animate-on-scroll">
+                    <div class="benefit-icon"><i class="fas fa-rocket"></i></div>
+                    <div class="benefit-title">Ускоренный рост рыбы</div>
+                    <div class="benefit-desc">Оптимальные условия содержания сокращают время выращивания на 30%</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Market & Logistics -->
+    <section class="market section" id="market">
+        <div class="container">
+            <h2 class="section-title"><span class="highlight">Стратегическое</span> расположение</h2>
+            <p class="section-subtitle">Идеальное географическое положение для максимального охвата рынков сбыта</p>
+            <div class="market-content">
+                <div class="market-info">
+                    <div class="market-item animate-on-scroll">
+                        <h4><i class="fas fa-map-marker-alt"></i> Производственная база</h4>
+                        <p><strong>г. Скадовск</strong> — Российская Федерация, Херсонская область</p>
+                        <p><strong>Морской порт:</strong> Наличие причальных зон для логистики</p>
+                        <p><strong>Ростов-на-Дону:</strong> 620 км — административный и логистический центр региона</p>
+                    </div>
+                    <div class="market-item animate-on-scroll">
+                        <h4><i class="fas fa-shipping-fast"></i> Логистические преимущества</h4>
+                        <p><strong>Экспортные порты:</strong> Новороссийск, Бердянск, Мариуполь</p>
+                        <p><strong>Основные рынки сбыта:</strong> ЮФО, Республика Крым — Ростов-на-Дону, Краснодар,
+                            Таганрог,
+                            Симферополь, Севастополь</p>
+                        <p><strong>Время доставки:</strong> Не более 8-и часов до основных точек реализации продукции
+                        </p>
+                    </div>
+                </div>
+                <div class="market-stats">
+                    <div class="stat-box animate-on-scroll">
+                        <div class="stat-number">15+ млн</div>
+                        <div class="stat-label">потребителей в зоне охвата</div>
+                    </div>
+                    <div class="stat-box animate-on-scroll">
+                        <div class="stat-number">800 км</div>
+                        <div class="stat-label">радиус эффективной доставки</div>
+                    </div>
+                    <div class="stat-box animate-on-scroll">
+                        <div class="stat-number">8 часов</div>
+                        <div class="stat-label">максимальное время доставки</div>
+                    </div>
+                    <div class="stat-box animate-on-scroll">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">доступность ключевых рынков</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Regional Impact -->
+    <section class="impact section" id="impact">
+        <div class="container">
+            <h2 class="section-title"><span class="highlight">Социально-экономический</span> эффект</h2>
+            <p class="section-subtitle">Комплексное позитивное влияние проекта на развитие региональной экономики</p>
+            <div class="impact-grid">
+                <div class="impact-card animate-on-scroll">
+                    <span class="impact-number">17</span>
+                    <div class="impact-label">прямых высокооплачиваемых рабочих мест</div>
+                </div>
+                <div class="impact-card animate-on-scroll">
+                    <span class="impact-number">60</span>
+                    <div class="impact-label">косвенных рабочих мест в смежных отраслях</div>
+                </div>
+                <div class="impact-card animate-on-scroll">
+                    <span class="impact-number">2,2 млн ₽</span>
+                    <div class="impact-label">налоговых поступлений в бюджет ежегодно</div>
+                </div>
+                <div class="impact-card animate-on-scroll">
+                    <i class="fas fa-shield-alt impact-number" style="font-size: 2.5rem;"></i>
+                    <div class="impact-label">Укрепление продовольственной безопасности региона</div>
+                </div>
+                <div class="impact-card animate-on-scroll">
+                    <i class="fas fa-industry impact-number" style="font-size: 2.5rem;"></i>
+                    <div class="impact-label">Развитие смежных отраслей и экосистемы</div>
+                </div>
+                <div class="impact-card animate-on-scroll">
+                    <i class="fas fa-graduation-cap impact-number" style="font-size: 2.5rem;"></i>
+                    <div class="impact-label">Трансфер технологий в образование и науку</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Risks Assessment -->
+    <section class="risks section" id="risks">
+        <div class="container">
+            <h2 class="section-title">Анализ рисков и их <span class="highlight">минимизация</span></h2>
+            <p class="section-subtitle">Комплексная оценка потенциальных рисков с детальными стратегиями их
+                нейтрализации</p>
+            <div class="risks-grid">
+                <div class="risk-card animate-on-scroll">
+                    <div class="risk-level risk-medium">Средний уровень риска</div>
+                    <div class="risk-title">Геополитические риски</div>
+                    <div class="risk-desc">Возможные изменения в международной торговле и ограничения доступа к
+                        экспортным рынкам.</div>
+                    <div class="risk-measures"><strong>Стратегия минимизации:</strong> Диверсификация рынков сбыта,
+                        приоритетный фокус на внутренний рынок РФ, создание стратегических запасов готовой продукции.
+                    </div>
+                </div>
+                <div class="risk-card animate-on-scroll">
+                    <div class="risk-level risk-low">Низкий уровень риска</div>
+                    <div class="risk-title">Экономические риски</div>
+                    <div class="risk-desc">Волатильность валютных курсов и изменения общей экономической конъюнктуры на
+                        рынке.</div>
+                    <div class="risk-measures"><strong>Стратегия минимизации:</strong> Стабильный спрос на рыбную
+                        продукцию, короткий производственный цикл, гибкая ценовая политика и хеджирование валютных
+                        рисков.</div>
+                </div>
+                <div class="risk-card animate-on-scroll">
+                    <div class="risk-level risk-low">Низкий уровень риска</div>
+                    <div class="risk-title">Регуляторные риски</div>
+                    <div class="risk-desc">Потенциальные изменения в законодательстве и ужесточение требований
+                        регулирующих органов.</div>
+                    <div class="risk-measures"><strong>Стратегия минимизации:</strong> Государственная поддержка
+                        развития аквакультуры, полное соответствие всем действующим стандартам, комплексное страхование
+                        деятельности.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact CTA -->
+    <section class="contact section" id="contact">
+        <div class="container">
+            <h2 class="section-title">Станьте частью <span class="highlight">будущего аквакультуры</span></h2>
+            <div class="contact-content">
+                <p style="font-size: 1.3rem; color: var(--secondary-silver); margin-bottom: 50px; line-height: 1.6;">
+                    Присоединяйтесь к инновационному проекту с гарантированной высокой доходностью и устойчивыми
+                    перспективами роста</p>
+
+                <div class="contact-grid">
+                    <a href="tel:+79166311567" class="contact-item animate-on-scroll">
+                        <div class="contact-icon"><i class="fas fa-phone"></i></div>
+                        <div class="contact-text">
+                            <span class="contact-link">+7 (916) 631 15 67</span>
+                        </div>
+                    </a>
+                    <a href="mailto:info@rybnysoyuz.ru" class="contact-item animate-on-scroll">
+                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                        <div class="contact-text">
+                            <span class="contact-link">info@rybnysoyuz.ru</span>
+                        </div>
+                    </a>
+                    <a href="https://yandex.ru/maps/?text=г.%20Скадовск%2C%20ул.%20Набережная%2C%202" target="_blank"
+                        class="contact-item animate-on-scroll">
+                        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div class="contact-text">
+                            <span class="contact-link">г. Скадовск, ул. Набережная, 2</span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="cta-section animate-on-scroll">
+                    <p>Свяжитесь с нами для получения персональной презентации проекта и детального обсуждения условий
+                        инвестирования</p>
+                    <div class="handshake-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img src="Transparent_logo.png" alt="Логотип Рыбный Союз" class="logo-img">
+                </div>
+                <div class="footer-info">
+                    <div class="footer-contact">
+                        <h3>ООО «Рыбный Союз»</h3>
+                        <p class="footer-desc">Инновационные решения в области аквакультуры</p>
+                        <div class="contact-links">
+                            <a href="tel:+79166311567"><i class="fas fa-phone"></i> +7 (916) 631 15 67</a>
+                            <a href="mailto:info@rybnysoyuz.ru"><i class="fas fa-envelope"></i> info@rybnysoyuz.ru</a>
+                            <span><i class="fas fa-map-marker-alt"></i> г. Скадовск, ул. Набережная, 2</span>
+                        </div>
+                    </div>
+                    <div class="footer-legal">
+                        <p>ИНН: 9500030810 • КПП: 950001001 • ОГРН: 1259500001804</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2025 ООО «Рыбный Союз». Все права защищены. Создано для устойчивого развития аквакультуры.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Professional water bubbles animation
+        function createBubbles() {
+            const bubblesContainer = document.querySelector('.bubbles');
+            if (!bubblesContainer) return;
+
+            // Create additional professional bubbles
+            for (let i = 0; i < 12; i++) {
+                const bubble = document.createElement('div');
+                bubble.className = 'bubble';
+                bubble.style.left = Math.random() * 100 + '%';
+                const size = Math.random() * 80 + 60; // 60-140px
+                bubble.style.width = size + 'px';
+                bubble.style.height = size + 'px';
+                bubble.style.animationDelay = Math.random() * 35 + 's';
+                bubble.style.animationDuration = (Math.random() * 15 + 30) + 's'; // 30-45s
+                bubblesContainer.appendChild(bubble);
+            }
+        }
+
+        // Header scroll effect
+        function handleHeaderScroll() {
+            const header = document.getElementById('header');
+
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+                if (scrollTop > 100) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+        }
+
+        // Counter animation with fixed values (Russian decimal format)
+        function animateCounters() {
+            const counters = document.querySelectorAll('.counter');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const counter = entry.target;
+                        const target = parseFloat(counter.getAttribute('data-target'));
+                        const increment = target / 80;
+                        let current = 0;
+
+                        const updateCounter = () => {
+                            if (current < target) {
+                                current += increment;
+                                if (target % 1 !== 0) {
+                                    // Russian decimal format (comma instead of dot)
+                                    counter.textContent = current.toFixed(2).replace('.', ',');
+                                } else {
+                                    counter.textContent = Math.ceil(current);
+                                }
+                                requestAnimationFrame(updateCounter);
+                            } else {
+                                // Always show exact target value with Russian format
+                                if (target % 1 !== 0) {
+                                    counter.textContent = target.toFixed(2).replace('.', ',');
+                                } else {
+                                    counter.textContent = target;
+                                }
+                            }
+                        };
+                        updateCounter();
+                        observer.unobserve(counter);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            counters.forEach(counter => observer.observe(counter));
+        }
+
+        // Scroll animations
+        function initScrollAnimations() {
+            const elements = document.querySelectorAll('.animate-on-scroll');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            elements.forEach(element => observer.observe(element));
+        }
+
+        // Chart.js initialization with CSV data (Russian number format)
+        function initCharts() {
+            const ctx = document.getElementById('cashFlowChart');
+            if (ctx) {
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Год 1', 'Год 2', 'Год 3', 'Год 4', 'Год 5', 'Год 6', 'Год 7', 'Год 8', 'Год 9', 'Год 10'],
+                        datasets: [{
+                            label: 'Денежный поток (млн ₽)',
+                            data: [-43.7, 12.6, 21, 21, 21, 21, 21, 21, 21, 21],
+                            backgroundColor: [
+                                'rgba(220, 53, 69, 0.7)', // Negative - red
+                                'rgba(255, 193, 7, 0.7)', // Break-even - yellow
+                                'rgba(0, 183, 194, 0.6)', // Positive years - cyan gradient
+                                'rgba(0, 183, 194, 0.65)',
+                                'rgba(0, 183, 194, 0.7)',
+                                'rgba(0, 183, 194, 0.75)',
+                                'rgba(0, 183, 194, 0.8)',
+                                'rgba(0, 183, 194, 0.85)',
+                                'rgba(0, 183, 194, 0.9)',
+                                'rgba(0, 183, 194, 1)'
+                            ],
+                            borderColor: [
+                                'rgba(220, 53, 69, 1)',
+                                'rgba(255, 193, 7, 1)',
+                                'rgba(0, 183, 194, 1)',
+                                'rgba(0, 183, 194, 1)',
+                                'rgba(0, 183, 194, 1)',
+                                'rgba(0, 183, 194, 1)',
+                                'rgba(0, 183, 194, 1)',
+                                'rgba(0, 183, 194, 1)',
+                                'rgba(0, 183, 194, 1)',
+                                'rgba(0, 183, 194, 1)'
+                            ],
+                            borderWidth: 2,
+                            borderRadius: 8,
+                            borderSkipped: false,
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function (context) {
+                                        let value = context.parsed.y;
+                                        // Russian number format
+                                        return context.dataset.label + ': ' + value.toFixed(1).replace('.', ',') + ' млн ₽';
+                                    }
+                                }
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: false,
+                                ticks: {
+                                    color: '#e6e8ea',
+                                    font: {
+                                        size: 12,
+                                        weight: '500'
+                                    },
+                                    callback: function (value, index, values) {
+                                        // Russian number format for y-axis
+                                        return value.toFixed(1).replace('.', ',') + ' млн ₽';
+                                    }
+                                },
+                                grid: {
+                                    color: 'rgba(255, 255, 255, 0.1)',
+                                    lineWidth: 1
+                                }
+                            },
+                            x: {
+                                ticks: {
+                                    color: '#e6e8ea',
+                                    font: {
+                                        size: 11,
+                                        weight: '500'
+                                    }
+                                },
+                                grid: {
+                                    display: false
+                                }
+                            }
+                        },
+                        animation: {
+                            duration: 2000,
+                            easing: 'easeInOutQuart'
+                        }
+                    }
+                });
+            }
+        }
+
+        // Smooth scrolling for navigation
+        function initSmoothScrolling() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+
+                    if (target) {
+                        const headerHeight = 70;
+                        const targetPosition = target.offsetTop - headerHeight;
+
+                        window.scrollTo({
+                            top: targetPosition,
+
+                            behavior: 'smooth'
+                        });
+
+                        // Close mobile menu if open
+                        const mobileMenu = document.getElementById('mobileMenu');
+                        const mobileToggle = document.getElementById('mobileToggle');
+                        if (mobileMenu && mobileMenu.classList.contains('active')) {
+                            mobileMenu.classList.remove('active');
+                            const icon = mobileToggle.querySelector('i');
+                            icon.classList.remove('fa-times');
+                            icon.classList.add('fa-bars');
+                        }
+                    }
+                });
+            });
+        }
+
+        // Mobile menu functionality
+        function initMobileMenu() {
+            const mobileToggle = document.getElementById('mobileToggle');
+            const mobileMenu = document.getElementById('mobileMenu');
+
+            if (mobileToggle && mobileMenu) {
+                mobileToggle.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    mobileMenu.classList.toggle('active');
+                    const icon = mobileToggle.querySelector('i');
+
+                    if (mobileMenu.classList.contains('active')) {
+                        icon.classList.remove('fa-bars');
+                        icon.classList.add('fa-times');
+                    } else {
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                });
+
+                // Close mobile menu when clicking outside
+                document.addEventListener('click', (e) => {
+                    if (!mobileToggle.contains(e.target) && !mobileMenu.contains(e.target)) {
+                        mobileMenu.classList.remove('active');
+                        const icon = mobileToggle.querySelector('i');
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                });
+            }
+        }
+
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', function () {
+            createBubbles();
+            handleHeaderScroll();
+            animateCounters();
+            initScrollAnimations();
+            initCharts();
+            initSmoothScrolling();
+            initMobileMenu();
+        });
+
+        // Optimize performance on window resize
+        let resizeTimeout;
+        window.addEventListener('resize', function () {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                initCharts();
+            }, 250);
+        });
+    </script>
+</body>
+
+</html>
